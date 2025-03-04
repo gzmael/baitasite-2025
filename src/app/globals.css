@@ -1,24 +1,248 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.97 0 0);
+  --foreground: oklch(0.145 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.87 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.87 0 0);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-gray-900: #303030;
+  --color-gray-800: #4D4D4D;
+  --color-gray-700: #696969;
+  --color-gray-600: #858585;
+  --color-gray-500: #A1A1A1;
+  --color-gray-400: #B0B0B0;
+  --color-gray-300: #BFBFBF;
+  --color-gray-200: #CECECE;
+  --color-gray-100: #DDDDDD;
+  --color-gray-50: #ECECEC;
+
+  --color-green: #00B8A9;
+  --color-green-50: #eefffb;
+  --color-green-100: #c6fff6;
+  --color-green-200: #8effee;
+  --color-green-300: #4dfbe5;
+  --color-green-400: #19e8d4;
+  --color-green-500: #00b8a9;
+  --color-green-600: #00a49b;
+  --color-green-700: #02837d;
+  --color-green-800: #086764;
+  --color-green-900: #0c5552;
+  --color-green-950: #003434;
+
+  --color-dark-900: #111216;
+  --color-dark-800: #1B1D22;
+  --color-dark-700: #25282F;
+  --color-dark-600: #2F323B;
+  --color-dark-500: #393D47;
+  --color-dark-400: #585C65;
+  --color-dark-300: #787B82;
+  --color-dark-200: #989AA0;
+  --color-dark-100: #B7B9BD;
+  --color-dark-50: #D7D8DB;
+
+  --color-red: #f6416c;
+  --color-red-50: #fff1f3;
+  --color-red-100: #ffe4e8;
+  --color-red-200: #fecdd6;
+  --color-red-300: #fea3b4;
+  --color-red-400: #fc708d;
+  --color-red-500: #f6416c;
+  --color-red-600: #e31b54;
+  --color-red-700: #c01047;
+  --color-red-800: #a01141;
+  --color-red-900: #89123f;
+  --color-red-950: #4d041e;
+
+  --color-purple-300: #8855FF;
+
+  --color-indigo-50: #eff9ff;
+  --color-indigo-100: #def3ff;
+  --color-indigo-200: #b6e9ff;
+  --color-indigo-300: #75d9ff;
+  --color-indigo-400: #2cc7ff;
+  --color-indigo-500: #00b6ff;
+  --color-indigo-600: #008dd4;
+  --color-indigo-800: #005e8d;
+  --color-indigo-900: #064f74;
+  --color-indigo-950: #04324d;
+
+  --color-blue-50: #eef6ff;
+  --color-blue-100: #daeaff;
+  --color-blue-200: #bddaff;
+  --color-blue-300: #90c4ff;
+  --color-blue-400: #539eff;
+  --color-blue-500: #357ffc;
+  --color-blue-600: #1f5ef1;
+  --color-blue-700: #1749de;
+  --color-blue-800: #193cb4;
+  --color-blue-900: #1a378e;
+  --color-blue-950: #152356;
+
+  --color-orange: #fe7c11;
+  --color-orange-50: #fff8ed;
+  --color-orange-100: #ffefd4;
+  --color-orange-200: #ffdba8;
+  --color-orange-300: #ffc071;
+  --color-orange-400: #ff9732;
+  --color-orange-500: #fe7c11;
+  --color-orange-900: #7e3110;
+  --color-orange-950: #441606;
+
+  --color-ocean-600: #332BA1;
+  --color-ocean-500: #4036C1;
+  --color-ocean-400: #5D54CD;
+  --color-ocean-300: #7A73D9;
+
+  --animate-loading-rotate: rotateLoading 1s linear infinite;
+  --animate-loading-upDown1: upDown1 1s cubic-bezier(0.4, 0, 0.6, 1) 0.5s infinite alternate;
+  --animate-loading-upDown2: upDown2 1.5s cubic-bezier(0.4, 0, 0.6, 1) 0.25s infinite alternate;
+  --animate-loading-shadow1: shadow1 1s cubic-bezier(0.4, 0, 0.6, 1) 0.5s infinite alternate;
+  --animate-loading-shadow2: shadow2 1.5s cubic-bezier(0.4, 0, 0.6, 1) 0.25s infinite alternate;
+  --animate-loading-note: upDown1 1s cubic-bezier(0.4, 0, 0.6, 1) 0.5s infinite alternate;
+
+  @keyframes rotateLoading {
+    to {
+      transform: rotate(360deg);
+    }
   }
+
+  @keyframes small {
+    from { opacity: '25%' }
+    to { opacity: '10%' }
+  }
+
+  @keyframes upDown1 {
+    from { top: '2rem' }
+    to { top: '1.5rem' }
+  }
+
+  @keyframes upDown2 {
+    from { top: '8rem' }
+    to { top: '7rem' }
+  }
+
+  --ease-in-expo: cubic-bezier(0.17, 0.55, 0.55, 1);
+  --ease-in-repeat: cubic-bezier(0.4, 0, 0.6, 1);
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
