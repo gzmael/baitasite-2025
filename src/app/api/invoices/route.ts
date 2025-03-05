@@ -110,11 +110,9 @@ export async function GET(request: Request) {
     },
   )
 
-  await createClientsInvoice(invoicesToCreate)
+  const invoicesCreated = await createClientsInvoice(invoicesToCreate)
 
   console.timeEnd('All process')
 
-  return new Response(JSON.stringify(clients), {
-    status: 200,
-  })
+  return NextResponse.json(invoicesCreated)
 }

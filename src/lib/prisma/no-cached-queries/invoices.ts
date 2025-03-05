@@ -2,7 +2,7 @@ import { CreateInvoiceDTO } from '@/contracts/invoices'
 import { prisma } from '@/lib/prisma'
 
 export const createClientsInvoice = async (invoices: CreateInvoiceDTO[]) => {
-  return await prisma.invoice.createMany({
+  const invoicesCreated = await prisma.invoice.createMany({
     data: invoices.map(
       ({
         amount,
@@ -36,4 +36,6 @@ export const createClientsInvoice = async (invoices: CreateInvoiceDTO[]) => {
       }),
     ),
   })
+
+  return invoicesCreated
 }
