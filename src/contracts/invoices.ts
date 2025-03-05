@@ -53,6 +53,28 @@ export type NewBoletoPixResponse = {
   codigoSolicitacao: string
 }
 
+export type GetBoletoResponse = {
+  totalElementos: number
+  cobrancas: {
+    cobranca: {
+      codigoSolicitacao: string
+      seuNumero: string
+    }
+    pagador: {
+      cpfCnpj: string
+    }
+    boleto: {
+      nossoNumero: string
+      linhaDigitavel: string
+      codigoBarras: string
+    }
+    pix: {
+      txid: string
+      pixCopiaECola: string
+    }
+  }[]
+}
+
 export interface CreateInvoiceDTO {
   amount: number
   due_date: Date
