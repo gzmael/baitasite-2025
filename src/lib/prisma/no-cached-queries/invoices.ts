@@ -1,7 +1,5 @@
-'use server'
-
 import { CreateInvoiceDTO } from '@/contracts/invoices'
-import prisma from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export const createClientsInvoice = async (invoices: CreateInvoiceDTO[]) => {
   return await prisma.invoice.createMany({

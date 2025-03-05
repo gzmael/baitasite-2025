@@ -1,6 +1,4 @@
-'use server'
-
-import prisma from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export const findClientWithoutInvoice = async (dueDate: Date) => {
   const clients = await prisma.client.findMany({
