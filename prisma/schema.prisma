@@ -1,0 +1,260 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         String     @id @default(cuid())
+  name       String
+  email      String     @unique
+  password   String?    @db.VarChar(255)
+  cellphone  String?    @unique @db.VarChar(15)
+  avatar_url String?
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  status     StatusUser @default(INACTIVE)
+  type       TypeUser   @default(CLIENT)
+  accounts   Account[]
+  sessions   Session[]
+  client     Client?
+
+  @@map("users")
+}
+
+model Account {
+  id                  String  @id @default(cuid())
+  user_id             String
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String?
+  access_token        String?
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String?
+  session_state       String?
+  user                User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+  @@index([user_id])
+  @@map("accounts")
+}
+
+model Session {
+  id            String        @id @default(cuid())
+  session_token String        @unique
+  user_id       String
+  expires       DateTime
+  type          TypeUserToken @default(SESSION)
+  publicIP      String?       @db.VarChar(255)
+  user          User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("sessions")
+}
+
+model Client {
+  id            String          @id @unique @default(cuid())
+  idNumber      Int
+  name          String          @db.VarChar(255)
+  host          String          @unique @db.VarChar(255)
+  token         String          @unique @db.VarChar(32)
+  logo          String?         @db.VarChar(255)
+  user_id       String          @unique @db.VarChar(25)
+  address_id    String?         @db.VarChar(25)
+  document      String          @db.VarChar(15)
+  type          TypeClient      @default(JURIDICA)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now()) @updatedAt
+  user          User            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plansOnClient PlansOnClient[]
+  invoice       Invoice[]
+  address       Address?        @relation(fields: [address_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  emails        ClientEmails[]
+
+  @@index([user_id])
+  @@index([address_id])
+  @@map("clients")
+}
+
+model ClientEmails {
+  id         String   @id @default(cuid())
+  client_id  String
+  email      String
+  name       String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([client_id])
+  @@map("client_emails")
+}
+
+model Address {
+  id           String   @id @unique @default(cuid())
+  client_id    String
+  street       String
+  number       String?
+  complement   String?
+  neighborhood String?
+  city         String
+  uf           String
+  zipcode      String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now()) @updatedAt
+  client       Client[]
+
+  @@map("addresses")
+}
+
+model Service {
+  id            String          @id @unique @default(cuid())
+  name          String          @db.VarChar(255)
+  description   String?         @db.Text
+  slug          String          @unique @db.VarChar(255)
+  status        StatusService   @default(PENDING)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
+  deletedAt     DateTime?
+  plans         Plan[]
+  plansOnClient PlansOnClient[]
+
+  @@map("services")
+}
+
+model Plan {
+  id            String          @id @unique @default(cuid())
+  service_id    String          @db.VarChar(25)
+  name          String          @db.VarChar(255)
+  whm_name      String?         @db.VarChar(255)
+  quota         Int
+  bw_limit      Int?
+  price         Int
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now()) @updatedAt
+  service       Service         @relation(fields: [service_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plansOnClient PlansOnClient[]
+
+  @@unique([service_id, name])
+  @@map("plans")
+}
+
+model PlansOnClient {
+  id                  String                @id @unique @default(cuid())
+  plan_id             String                @db.VarChar(25)
+  service_id          String                @db.VarChar(25)
+  client_id           String                @db.VarChar(25)
+  quantity            Int
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now()) @updatedAt
+  suspended_at        DateTime?
+  created_by          String                @db.VarChar(25)
+  service             Service               @relation(fields: [service_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  client              Client                @relation(fields: [client_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  plan                Plan                  @relation(fields: [plan_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planClientOnInvoice PlanClientOnInvoice[]
+
+  @@unique([client_id, service_id, plan_id])
+  @@index([service_id])
+  @@index([plan_id])
+  @@map("plans_clients")
+}
+
+model PlanClientOnInvoice {
+  id              String        @id @unique @default(cuid())
+  plansOnClientId String        @db.VarChar(25)
+  invoiceId       String        @db.VarChar(25)
+  invoice         Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planOnClient    PlansOnClient @relation(fields: [plansOnClientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([plansOnClientId, invoiceId])
+  @@index([invoiceId])
+  @@map("invoice_plans_clients")
+}
+
+model Invoice {
+  id                  String                @id @unique @default(cuid())
+  reference           String                @unique
+  client_id           String                @db.VarChar(25)
+  amount              Int
+  due_date            DateTime              @db.Date
+  paid_at             DateTime?
+  payment_type        String?
+  nossoNumero         String?
+  barCode             String?
+  digitableLine       String?
+  codigoSolicitacao   String?
+  txid                String?
+  pixCopiaECola       String?
+  nfse                String?
+  status              StatusInvoice
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now()) @updatedAt
+  client              Client                @relation(fields: [client_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  planClientOnInvoice PlanClientOnInvoice[]
+
+  @@index([client_id])
+  @@map("invoices")
+}
+
+enum AlertType {
+  NEW_INVOICE
+  DELAYED_INVOICE
+}
+
+model Alert {
+  id   String    @id @unique @default(cuid())
+  slug String    @unique @db.VarChar(255)
+  text String    @db.Text
+  type AlertType
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  deletedAt  DateTime?
+
+  @@map("alerts")
+}
+
+enum StatusUser {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum TypeUser {
+  ADMIN
+  CLIENT
+}
+
+enum TypeUserToken {
+  ACTIVE
+  REFRESH
+  PASSWORD
+  SESSION
+}
+
+enum TypeClient {
+  FISICA
+  JURIDICA
+}
+
+enum StatusService {
+  ACTIVE
+  PENDING
+  INACTIVE
+}
+
+enum StatusInvoice {
+  PENDING
+  SENDED
+  EXPIRED
+  PAID
+  CANCELED
+}
