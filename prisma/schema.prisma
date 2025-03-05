@@ -194,7 +194,7 @@ model Invoice {
   txid                String?
   pixCopiaECola       String?
   nfse                String?
-  status              StatusInvoice
+  status              StatusInvoice         @default(PENDING)
   created_at          DateTime              @default(now())
   updated_at          DateTime              @default(now()) @updatedAt
   client              Client                @relation(fields: [client_id], references: [id], onDelete: Cascade, onUpdate: Cascade)

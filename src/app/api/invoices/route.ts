@@ -71,7 +71,7 @@ export async function GET(request: Request) {
   const clientsWithCobranca = cobrancas
     .map((cobranca) => {
       const client = clients.find(
-        (client) => client.document === cobranca.pagador.cpfCnpj,
+        (client) => client.document === cobranca.cobranca.pagador.cpfCnpj,
       )
 
       if (!client) {

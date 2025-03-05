@@ -59,9 +59,9 @@ export type GetBoletoResponse = {
     cobranca: {
       codigoSolicitacao: string
       seuNumero: string
-    }
-    pagador: {
-      cpfCnpj: string
+      pagador: {
+        cpfCnpj: string
+      }
     }
     boleto: {
       nossoNumero: string
