@@ -57,3 +57,63 @@ export const createClientsInvoice = async (invoices: CreateInvoiceDTO[]) => {
 
   return findInvoices
 }
+
+export const getPendingInvoicesByDueDate = async (dueDate: string) => {
+  const invoices = await prisma.invoice.findMany({
+    where: {
+      due_date: dueDate,
+      status: 'PENDING',
+    },
+    select: {
+      id: true,
+      nossoNumero: true,
+      amount: true,
+      digitableLine: true,
+      due_date: true,
+      created_at: true,
+      txid: true,
+      pixCopiaECola: true,
+      codigoSolicitacao: true,
+      status: true,
+      nfse: true,
+      client: {
+        select: {
+          host: true,
+          document: true,
+          name: true,
+          type: true,
+          address: true,
+          idNumber: true,
+          emails: {
+            select: {
+              email: true,
+              name: true,
+            },
+          },
+          user: {
+            select: {
+              email: true,
+            },
+          },
+        },
+      },
+      planClientOnInvoice: {
+        select: {
+          planOnClient: {
+            select: {
+              quantity: true,
+              plan: {
+                select: {
+                  name: true,
+                  price: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  return invoices
+}
