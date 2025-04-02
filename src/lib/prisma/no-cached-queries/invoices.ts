@@ -38,6 +38,16 @@ export const createClientsInvoice = async (invoices: CreateInvoiceDTO[]) => {
         in: invoices.map((invoice) => invoice.reference),
       },
     },
+    select: {
+      id: true,
+      reference: true,
+      amount: true,
+      client: {
+        select: {
+          name: true,
+        },
+      },
+    },
   })
 
   await prisma.planClientOnInvoice.createMany({
