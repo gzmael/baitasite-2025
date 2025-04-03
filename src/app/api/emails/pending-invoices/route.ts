@@ -25,9 +25,9 @@ export async function POST() {
     })
   }
 
-  const { dueDate } = getEmitAndDueDate()
+  const { sqlDueDate } = getEmitAndDueDate()
 
-  const invoices = await getPendingInvoicesByDueDate(dueDate)
+  const invoices = await getPendingInvoicesByDueDate(sqlDueDate)
 
   if (invoices.length === 0) {
     return NextResponse.json({ lenght: invoices.length, invoices: [] })
