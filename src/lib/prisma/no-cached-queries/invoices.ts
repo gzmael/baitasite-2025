@@ -137,7 +137,7 @@ export const getPendingInvoicesByDueDateToSendEmail = async (
       status: 'PENDING',
     },
     select: {
-      reference: true,
+      nossoNumero: true,
     },
   })
 
