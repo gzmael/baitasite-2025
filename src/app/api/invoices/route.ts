@@ -95,7 +95,7 @@ export async function GET(request: Request) {
       return {
         amount: total_amount,
         due_date: dueDateOriginal,
-        reference: client.name,
+        reference: cobranca.cobranca.seuNumero,
         client_id: client.id,
         nossoNumero: cobranca.boleto.nossoNumero,
         digitableLine: cobranca.boleto.linhaDigitavel,

@@ -3,6 +3,7 @@ import { Column, Link } from '@react-email/components'
 import { Headline } from './Headline'
 
 export const PaymentMethods = ({ nfse }: { nfse: string }) => {
+  const url = `https://www.pmat.com.br/notafiscal/NFA/Empresa/EmpresaImprimirNF.aspx?nome=${nfse}`
   return (
     <>
       <Column className="w-full align-top">
@@ -10,10 +11,10 @@ export const PaymentMethods = ({ nfse }: { nfse: string }) => {
           Nota Fiscal Eletrônica de Serviço
         </Headline>
         <Link
-          href={nfse}
+          href={url}
           className="m-0 p-0 text-xs leading-tight text-gray-700"
         >
-          {nfse}
+          {url}
         </Link>
       </Column>
     </>
