@@ -137,45 +137,7 @@ export const getPendingInvoicesByDueDateToSendEmail = async (
       status: 'PENDING',
     },
     select: {
-      client: {
-        select: {
-          name: true,
-          emails: {
-            select: {
-              email: true,
-            },
-          },
-          user: {
-            select: {
-              email: true,
-            },
-          },
-          address: true,
-          document: true,
-          type: true,
-          idNumber: true,
-          host: true,
-        },
-      },
-      planClientOnInvoice: {
-        select: {
-          planOnClient: {
-            select: {
-              plan: {
-                select: {
-                  name: true,
-                  price: true,
-                },
-              },
-              quantity: true,
-            },
-          },
-        },
-      },
-      due_date: true,
-      codigoSolicitacao: true,
-      created_at: true,
-      nfse: true,
+      reference: true,
     },
   })
 
