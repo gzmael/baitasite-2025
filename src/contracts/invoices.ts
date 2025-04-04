@@ -1,3 +1,6 @@
+import { ClientItem } from './clients'
+import { Item } from './itens'
+
 export type NewBoleto = {
   seuNumero: string
   valorNominal: number
@@ -89,4 +92,20 @@ export interface CreateInvoiceDTO {
   planClientIds: {
     plansOnClientId: string
   }[]
+}
+
+export type Invoice = {
+  reference: string
+  amount: number
+  dueDate: string
+}
+
+export type NewInvoice = {
+  client: ClientItem
+  items: Item[]
+  alert?: string
+  dueDate: string
+  emitDate: string
+  reference: string
+  nfse: string | null
 }

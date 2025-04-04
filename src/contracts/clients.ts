@@ -25,3 +25,12 @@ export type ClientWithInvoiceData = {
     zipcode: string
   } | null
 }
+
+export interface ClientItem {
+  idNumber: string
+  name: string
+  cnpj: string
+  address1: string
+  address2: string
+  domain: string
+}
