@@ -162,13 +162,11 @@ export async function POST(req: Request) {
     nfse,
   }
 
-  // const originalTo =
-  //   userEmail && emails.length === 0
-  //     ? [userEmail, 'jezmaelbasilio@gmail.com']
-  //     : [...emails, 'jezmaelbasilio@gmail.com']
-  const originalTo = ['jezmaelbasilio@gmail.com']
+  const originalTo =
+    userEmail && emails.length === 0
+      ? [userEmail, 'jezmaelbasilio@gmail.com']
+      : [...emails, 'jezmaelbasilio@gmail.com']
 
-  console.log(originalTo)
   console.timeEnd('Formating data invoice')
 
   console.time('Sending e-mail')
