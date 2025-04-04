@@ -1,7 +1,7 @@
 import { Column, Img, Text, Row } from '@react-email/components'
 
 import { Headline } from './Headline'
-import { env } from '../../src/config/env'
+import { env } from '@/env'
 
 interface AlertProps {
   text: string

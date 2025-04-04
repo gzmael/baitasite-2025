@@ -7,10 +7,10 @@ import {
   Preview,
   Tailwind,
 } from '@react-email/components'
-import config from 'tailwind-config'
 
 import { Header } from './Header'
 import { HeadMail } from './HeadMail'
+import { theme } from '@/theme'
 
 interface LayoutProps {
   previewText: string
@@ -25,8 +25,11 @@ export const Layout = ({ previewText, children }: LayoutProps) => {
       <Tailwind
         config={{
           theme: {
-            colors: config.theme.colors,
-            fontFamily: config.theme.extend.fontFamily,
+            colors: theme.colors,
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+              display: ['Alata', 'sans-serif'],
+            },
           },
         }}
       >

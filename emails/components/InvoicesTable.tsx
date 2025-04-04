@@ -1,8 +1,8 @@
 import { Column, Text } from '@react-email/components'
 
-import { cn } from '../../src/lib/utils'
-import { Invoice } from '../../src/models/Invoice'
-import { convertToMoney } from '../../src/utils/convertNumbers'
+import { cn } from '@/lib/utils'
+import { Invoice } from '@/contracts/invoices'
+import { convertToMoney } from '@/lib/utils'
 
 interface InvoicesTableProps {
   invoices: Invoice[]

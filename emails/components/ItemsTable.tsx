@@ -1,7 +1,7 @@
 import { Column, Row, Section } from '@react-email/components'
 
-import { Item } from '../../src/models/Item'
-import { convertToMoney } from '../../src/utils/convertNumbers'
+import { Item } from '@/contracts/itens'
+import { convertToMoney } from '@/lib/utils'
 
 interface ItemsTableProps {
   items: Item[]

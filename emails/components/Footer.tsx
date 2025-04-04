@@ -1,7 +1,7 @@
 import { Column, Img, Link, Section, Text } from '@react-email/components'
 
 import { SocialIcon } from './SocialIcon'
-import { env } from '../../src/config/env'
+import { env } from '@/env'
 
 const socialLinks = [
   {

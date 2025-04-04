@@ -1,6 +1,6 @@
 import { Column, Img, Section } from '@react-email/components'
 
-import { env } from '../../src/config/env'
+import { env } from '@/env'
 
 interface HeaderProps {
   loose?: boolean

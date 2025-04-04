@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 import { Section } from '@react-email/components'
 
-import { cn } from '../../src/lib/utils'
+import { cn } from '@/lib/utils'
 
 interface SectionMiddleProps {
   children: ReactNode
